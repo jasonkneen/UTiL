@@ -6,7 +6,7 @@ Take a look at the docs for [Ti.Android.Menu](http://docs.appcelerator.com/titan
 
 This module deals with all of this frustration :)
 
-# How?
+## How?
 Learn by example:
 
 ```
@@ -31,7 +31,7 @@ menu.add({
 });
 ```
 
-# Ideas
+## Ideas
 Some ideas for improvement:
 
 * Have `add()` return an object to further manipulate the *MenuItem*, including adding multiple eventlisteners.

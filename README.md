@@ -6,9 +6,11 @@ A collection of utility scripts for [Appcelerator](http://www.appcelerator.com)'
 ## [Menu](https://github.com/FokkeZB/UTiL/tree/master/menu)
 CommonJS module for managing the Android Activity Menu and ActionBar.
 
+## [Validate](https://github.com/FokkeZB/UTiL/tree/master/validate)
+CommonJS module providing validation.
+
 ## [Alloy](https://github.com/FokkeZB/UTiL/tree/master/alloy)
 CommonJS module to allow modules built for Alloy to function in classic projects.
-
 
 ## [Image](https://github.com/FokkeZB/UTiL/tree/master/image)
 CommonJS module providing image manipulation methods.
