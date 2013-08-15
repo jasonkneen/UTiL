@@ -9,3 +9,6 @@ CommonJS module for managing the Android Activity Menu and ActionBar.
 ## [Alloy](https://github.com/FokkeZB/UTiL/tree/master/alloy)
 CommonJS module to allow modules built for Alloy to function in classic projects.
 
+
+## [Image](https://github.com/FokkeZB/UTiL/tree/master/image)
+CommonJS module providing image manipulation methods.
