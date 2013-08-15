@@ -1,27 +1,38 @@
-Often I need to display a user-provided picture in an ImageView in such a way that the whole ImageView is filled with as much of the picture possible.
+# Menu
+CommonJS module for managing the Android Activity Menu and ActionBar.
 
-This is how I do it:
+## Why?
+Take a look at the docs for [Ti.Android.Menu](http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.Android.Menu) and [Ti.Android.ActionBar](http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.Android.ActionBar) and you'll see that managing MenuItems and the ActionBar is all about doing it in the right order. It takes listening to the `Window` or `TabGroup` opening, calling `invalidateOptionsMenu()` under certain circumstances etc. And you can have only one callback to create MenuItems or respond when the ActionBar's home icon is clicked.
+
+This module deals with all of this frustration :)
+
+# How?
+Learn by example:
 
 ```
-var image = require('image');
+var Menu = require('menu');
 
-Ti.Media.showCamera({
-        mediaTypes: [Ti.Media.MEDIA_TYPE_PHOTO],
-        success: function (e) {
-                myImageView.image = image.crop(e.media, myImageView.rect);
-        }
+// Create a new instance for the given Window or TabGroup
+var menu = new Menu($.index);
+
+// Call any of the ActionBar's setter, show or hide methods
+menu.actionBar.setTitle(Ti.App.name).setIcon('icon.png');
+
+// Add as many event listeners you need
+menu.actionBar.on('homeIconItemSelected', function () {
+    $.index.activeTab = 0;
+});
+
+// Add a menu item and event listeners to it in one go
+menu.add({
+    title: 'My title',
+    icon: 'My icon',
+    onClick: function() { alert('Hello'); }
 });
 ```
 
-Take a look at the next `image.js` file to learn how it works.
+# Ideas
+Some ideas for improvement:
 
-## Params
-* `blob`: The `Ti.Blob` containing the image.
-* `options`: Either an `object` (or [Dimension](http://docs.appcelerator.com/titanium/latest/#!/api/Dimension)) containing the target `width` and `height` and the other options listed below, or a Number representing only the `width`.
-* `height`: The target `height`.
-
-## Options
-* `width`: See above.
-* `height`: See above.
-* `hires`: Set to `FALSE` to disable adjusting target dimensions to actual pixels needed for Retina or Android variable DPI.
-* `fix`: Set to `FALSE` to disable the workaround for bug [TIMOB-4865](https://jira.appcelerator.org/browse/TIMOB-4865).
+* Have `add()` return an object to further manipulate the *MenuItem*, including adding multiple eventlisteners.
+* Support changing and removing MenuItems.

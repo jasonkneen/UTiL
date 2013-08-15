@@ -1,3 +1,4 @@
+# Alloy
 If you want to your CommonJS modules to work in both Alloy and plain Titanium projects, you might need a way to detect if you're in Alloy. For instance, if you're in Alloy you would get Underscore from the alloy-module, while in plain Titanium you would require Underscore directly.
 
 Well, you can:

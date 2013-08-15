@@ -1,3 +1,4 @@
+# Image
 Often I need to display a user-provided picture in an ImageView in such a way that the whole ImageView is filled with as much of the picture possible.
 
 This is how I do it:
