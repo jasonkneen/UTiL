@@ -1,4 +1,4 @@
-# UT*i*L
+# UTiL
 A collection of utility scripts for [Appcelerator](http://www.appcelerator.com)'s [Titanium](http://www.appcelerator.com/platform) and it's [Alloy](http://projects.appcelerator.com/alloy/docs/Alloy-bootstrap/index.html) MVC framework.
 
 *This is a public, but personal library of utility scripts. They may change at any time without notice! Feel free to fork and contribute, but I'll decide what PR's to accept based on their potential use for my projects.*
