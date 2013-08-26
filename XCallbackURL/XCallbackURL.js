@@ -18,7 +18,7 @@ XCallbackURL.prototype.params = function() {
     if (this.parsedURI.queryKey) {
         var params = {};
         for (var _key in this.parsedURI.queryKey) {
-            params[_key] = unescape(this.parsedURI[_key]);
+            params[_key] = unescape(this.parsedURI.queryKey[_key]);
         }
         return params;
     }
