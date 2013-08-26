@@ -14,3 +14,6 @@ CommonJS module to allow modules built for Alloy to function in classic projects
 
 ## [Image](https://github.com/FokkeZB/UTiL/tree/master/image)
 CommonJS module providing image manipulation methods.
+
+## [XCallbackURL](https://github.com/FokkeZB/UTiL/tree/master/XCallbackURL)
+CommonJS module for parsing URLs according to the X-Callback-URL standard.

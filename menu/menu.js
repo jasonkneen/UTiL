@@ -65,6 +65,7 @@ function Menu(_win) {
 
         activity.onCreateOptionsMenu = function (e) {
             var menu = e.menu;
+            menu.clear();
 
             menuItems.forEach(function (options) {
                 var onClick = options.onClick;
@@ -88,14 +89,10 @@ function Menu(_win) {
                 if (onExpand) {
                     menuItem.addEventListener('expand', onExpand);
                 }
-
-                Ti.API.info('added ' + JSON.stringify(options));
             });
         };
 
-        if (menuItems.length) {
-            activity.invalidateOptionsMenu();
-        }
+        win.activity.invalidateOptionsMenu();
 
         if (activity.actionBar) {
             actionBar = activity.actionBar;
@@ -113,7 +110,7 @@ function Menu(_win) {
     $.actionBar = {
         hide: function () {
 
-            if (!actionBar) {
+            if (actionBar === null) {
                 on('openActionBar', $.actionBar.hide);
 
             } else {
@@ -125,7 +122,7 @@ function Menu(_win) {
 
         show: function () {
 
-            if (!actionBar) {
+            if (actionBar === null) {
                 on('openActionBar', $.actionBar.show);
 
             } else {
@@ -158,8 +155,8 @@ function Menu(_win) {
         var method = 'set' + name;
 
         $.actionBar[method] = function(val) {
-        
-            if (!actionBar) {
+
+            if (actionBar === null) {
                 on('openActionBar', function () {
                     $.actionBar[method](val);
                 });
@@ -180,11 +177,23 @@ function Menu(_win) {
         return $;
     };
 
+    $.clear = function() {
+        menuItems = [];
+    };
+
+    $.set = function(_menuItems) {
+        menuItems = _menuItems;
+
+        if (activity) {
+            win.activity.invalidateOptionsMenu();
+        }
+    };
+
     $.add = function(options) {
         menuItems.push(options);
 
         if (activity) {
-            win.invalidateOptionsMenu();
+            win.activity.invalidateOptionsMenu();
         }
 
         // TODO: Return a menuItem object allowing on/off/remove etc
