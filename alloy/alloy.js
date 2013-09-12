@@ -23,7 +23,7 @@ Object.defineProperty(exports, "Backbone", {
     }
 });
 
-exports.infect(scope) {
+exports.infect = function(scope) {
 	scope.OS_ANDROID = OS_ANDROID;
 	scope.OS_IOS = OS_IOS;
 	scope.OS_MOBILEWEB = OS_MOBILEWEB;
