@@ -1,4 +1,5 @@
-var _ = _ || require((typeof ENV_TEST === 'boolean') ? 'alloy' : 'underscore')._;
+var _ = _ || require((typeof ENV_TEST === 'boolean') ? 'alloy' : 'underscore')._,
+    OS_IOS = OS_IOS || Ti.Platform.name === 'iPhone OS';
 
 facebook = require('facebook');
 facebook.appid = Ti.App.Properties.getString('ti.facebook.appid');
@@ -7,6 +8,7 @@ facebook.retrievePermissions = function(_callback) {
 
     this.requestWithGraphPath('/me/permissions', {}, 'GET', function(FacebookGraphResponse) {
 
+        // Request failed
         if (!FacebookGraphResponse.success) {
             _callback(FacebookGraphResponse);
             return;
@@ -36,7 +38,8 @@ facebook.hasPermissions = function(_permissions, _callback) {
 
         _callback({
             success: missing.length === 0,
-            missing: missing
+            missing: missing,
+            found: _response.permissions
         });
     });
 };
@@ -54,8 +57,8 @@ facebook.requestPermissions = function(_permissions, _scope, _callback) {
 
     this.hasPermissions(_permissions, function(_response) {
 
-        // We have them all or failed retrieving
-        if (_response.success || !_response.found) {
+        // We have them all, failed retrieving or cannot extend (Android)
+        if (_response.success || !_response.found || !OS_IOS) {
             _callback(_response);
             return;
         }
