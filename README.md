@@ -3,7 +3,7 @@ A collection of utility scripts for [Appcelerator](http://www.appcelerator.com)'
 
 *This is a public, but personal library of utility scripts. They may change at any time without notice! Feel free to fork and contribute, but I'll decide what PR's to accept based on their potential use for my projects.*
 
-## [Facebook](https://github.com/FokkeZB/UTiL/tree/master/facebook)
+## [Faceboost](https://github.com/FokkeZB/UTiL/tree/master/faceboost)
 CommonJS module wrapping the Facebook module with additional methods.
 
 ## [Menu](https://github.com/FokkeZB/UTiL/tree/master/menu)
