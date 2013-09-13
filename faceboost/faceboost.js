@@ -92,7 +92,7 @@ facebook.boost = {
         });
     },
 
-    boostRequestPermissions: function(_permissions, _scope, _callback) {
+    requestPermissions: function(_permissions, _scope, _callback) {
 
         if (_.isString(_permissions)) {
             _permissions = [_permissions];
