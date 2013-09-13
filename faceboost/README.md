@@ -1,4 +1,4 @@
-# Facebook
+# Faceboost
 CommonJS module wrapping the Facebook module with additional methods.
 
 ## Usage
