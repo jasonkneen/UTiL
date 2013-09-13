@@ -1,5 +1,5 @@
 var _ = _ || require((typeof ENV_TEST === 'boolean') ? 'alloy' : 'underscore')._,
-    OS_IOS = OS_IOS || Ti.Platform.name === 'iPhone OS';
+    OS_IOS = Ti.Platform.name === 'iPhone OS';
 
 facebook = require('facebook');
 facebook.appid = Ti.App.Properties.getString('ti.facebook.appid');
@@ -58,7 +58,7 @@ facebook.requestPermissions = function(_permissions, _scope, _callback) {
     this.hasPermissions(_permissions, function(_response) {
 
         // We have them all, failed retrieving or cannot extend (Android)
-        if (_response.success || !_response.found || !OS_IOS) {
+        if (_response.success || !_response.missing || !OS_IOS) {
             _callback(_response);
             return;
         }
