@@ -6,7 +6,8 @@ XCallbackURL.prototype.isCallbackURL = function() {
     return this.parsedURI.host.toLowerCase() == 'x-callback-url';
 };
 XCallbackURL.prototype.action = function() {
-    return this.parsedURI.file;
+    // Support non x-callback-url by falling back to host
+    return this.parsedURI.file || this.parsedURI.host;
 };
 XCallbackURL.prototype.param = function(_key) {
     if (this.parsedURI.queryKey && this.parsedURI.queryKey[_key]) {

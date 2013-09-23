@@ -6,7 +6,7 @@ A collection of utility scripts for [Appcelerator](http://www.appcelerator.com)'
 ## [Parental Gate](https://github.com/FokkeZB/UTiL/tree/master/gate)
 CommonJS module providing simple mathematical question as parental gate for kids apps.
 
-## [Facebook](https://github.com/FokkeZB/UTiL/tree/master/facebook)
+## [Faceboost](https://github.com/FokkeZB/UTiL/tree/master/faceboost)
 CommonJS module wrapping the Facebook module with additional methods.
 
 ## [Menu](https://github.com/FokkeZB/UTiL/tree/master/menu)
