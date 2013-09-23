@@ -3,6 +3,9 @@ A collection of utility scripts for [Appcelerator](http://www.appcelerator.com)'
 
 *This is a public, but personal library of utility scripts. They may change at any time without notice! Feel free to fork and contribute, but I'll decide what PR's to accept based on their potential use for my projects.*
 
+## [Parental Gate](https://github.com/FokkeZB/UTiL/tree/master/gate)
+CommonJS module providing simple mathematical question as parental gate for kids apps.
+
 ## [Facebook](https://github.com/FokkeZB/UTiL/tree/master/facebook)
 CommonJS module wrapping the Facebook module with additional methods.
 
