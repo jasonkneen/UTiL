@@ -1,5 +1,11 @@
 function keeper(_callback) {
 
+    // unlocked
+    if (!exports.locked) {
+        _callback(true);
+        return;
+    }
+
     // random mathematical question
     var x = _random();
     var y = _random();
@@ -35,6 +41,29 @@ function keeper(_callback) {
     dialog.show();
 }
 
+function toggle(_callback) {
+
+    // lock
+    if (!exports.locked) {
+        exports.locked = true;
+
+        if (typeof _callback !== 'undefined') {
+            _callback(exports.locked);
+        }
+
+        return;
+    }
+
+    // gate to unlock
+    keeper(function (success) {
+        exports.locked = !success;
+
+        if (typeof _callback !== 'undefined') {
+            _callback(exports.locked);
+        }
+    });
+}
+
 // get random number
 function _random() {
     return Math.floor(Math.random() * (exports.to - exports.from + 1) + exports.from);
@@ -43,6 +72,7 @@ function _random() {
 // options
 exports.from = 1;
 exports.to = 10;
+exports.locked = true;
 
 // texts
 exports.title = L('gate_title', 'Age check');
@@ -52,5 +82,6 @@ exports.error_title = L('gate_error_title', 'Age check failed');
 exports.error_message = L('gate_error_message', 'The solution was %s');
 exports.error_button = L('gate_error_button', 'OK');
 
-// keeper
+// methods
 exports.keeper = keeper;
+exports.toggle = toggle;
