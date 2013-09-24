@@ -1,3 +1,5 @@
+var _locked = Ti.App.Properties.getBool('gate_locked', true);
+
 function keeper(_callback) {
 
     // unlocked
@@ -72,7 +74,16 @@ function _random() {
 // options
 exports.from = 1;
 exports.to = 10;
-exports.locked = true;
+
+Object.defineProperty(exports, "locked", {
+    get: function () {
+        return _locked;
+    },
+    set: function (locked) {
+        _locked = !!locked;
+        Ti.App.Properties.setBool('gate_locked', _locked);
+    }
+});
 
 // texts
 exports.title = L('gate_title', 'Age check');
