@@ -11,8 +11,9 @@ Learn by example:
 var gate = require('gate');
 
 // Optionally override settings
-gate.from = 1;   // Minimum for random 'x'
-gate.to = 10;    // Maximum for random 'y'
+gate.locked = true; // Lock/Unlock gate
+gate.from = 1;      // Minimum for random 'x'
+gate.to = 10;       // Maximum for random 'y'
 
 // Optionally override texts (also via i18n)
 gate.title = 'Checking your IQ';                    // gate_title
@@ -24,12 +25,17 @@ gate.error_button = 'OK';                           // gate_error_button
 
 gate.keeper(function (success) {
 
-    // Returns TRUE if the question was answered OK
+    // Returns TRUE if the gate was unlocked or question was answered OK
     if (success) {
         Ti.Platform.openURL('http://www.google.com');
     }
     
     // On FALSE an error dialog will be shown
     // No further action needed in most cases
+});
+
+gate.toggle(function (locked) {
+    // Returns TRUE if gate is now locked
+    // Presents question only to unlock, not to lock
 });
 ```
