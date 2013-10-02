@@ -62,7 +62,7 @@ rate.plus(5, false);
 rate.test();
  
 // Just ask
-rate.show();
+rate.open();
 ```
 
 ## Callback
