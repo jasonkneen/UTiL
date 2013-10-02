@@ -1,5 +1,5 @@
 var ios = (Ti.Platform.name === 'iPhone OS'),
-    android = (Ti.Platform.name === 'android'),
+    android = (!ios && Ti.Platform.name === 'android'),
     ipad = (ios && Ti.Platform.osname === 'ipad'),
     callback = null,
     facebook_appid = null,
@@ -79,7 +79,7 @@ function share(args, _callback) {
                 text: args.url ? (args.text ? args.text + ' ' + args.url : args.url) : args.text,
                 image: args.image,
                 removeIcons: args.removeIcons
-            }, args.customIcons);
+            }, args.customIcons || []);
         }
         
         return;
