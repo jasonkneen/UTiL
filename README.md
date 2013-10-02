@@ -3,6 +3,9 @@ A collection of utility scripts for [Appcelerator](http://www.appcelerator.com)'
 
 *This is a public, but personal library of utility scripts. They may change at any time without notice! Feel free to fork and contribute, but I'll decide what PR's to accept based on their potential use for my projects.*
 
+## [Share](https://github.com/FokkeZB/UTiL/tree/master/share)
+CommonJS module providing a one-in-all social sharing solution for iOS and Android.
+
 ## [Rate](https://github.com/FokkeZB/UTiL/tree/master/rate)
 CommonJS module popping the 'rate-my-app' question at just the right time.
 
