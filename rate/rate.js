@@ -107,7 +107,7 @@ function open() {
             return;
         }
 
-        Ti.Platform.openURL('itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=' + exports.appleId + '&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software');
+        Ti.Platform.openURL('http://itunes.apple.com/app/id' + exports.appleId);
     }
 
     return;
@@ -152,13 +152,14 @@ function _trigger(_points, _show) {
 
         if (checked === 0) {
             Ti.App.Properties.setInt('rate_asked', now);
+            checked = now;
         }
 
         if (points < exports.pointsBetween) {
             Ti.API.debug('[RATE] Not enough points: ' + points + ' of ' + exports.pointsBetween);
             _show = false;
 
-        } else if (checked === 0 || (now - checked) < (exports.daysBetween * 86400)) {
+        } else if ((now - checked) < (exports.daysBetween * 86400)) {
             Ti.API.debug('[RATE] Not enough days' + (checked ? (': ' + Math.round((now - checked) / 86400) + ' of ' + exports.daysBetween) : ''));
             _show = false;
         }
