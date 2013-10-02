@@ -64,3 +64,16 @@ rate.test();
 // Just ask
 rate.show();
 ```
+
+## Callback
+You can set a simple callback to get notified of the response of the user, so you can attach some analytics. For example:
+
+```
+rate.listener = function(e) {
+    switch (e.type) {
+        case 'yes': break;
+        case 'never': break;
+        case 'later': break;
+    }
+};
+```
