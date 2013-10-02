@@ -5,7 +5,18 @@ CommonJS module providing a one-in-all social sharing solution for iOS and Andro
 Because I use the same code in pretty much every app I do :)
 
 ## How?
-Learn by example:
+The module uses [dk.napp.social](https://github.com/viezel/TiSocial.Framework) and Appcelerator's `facebook` module (for SDK 3.1 and later). You need to download `dk.napp.social` yourself, add both modules to your `tiapp.xml` and set `ti.facebook.appid` as a property for iOS.
+
+```
+<property name="ti.facebook.appid">123456789</property>
+<modules>
+  <module platform="android">facebook</module>
+  <module platform="iphone">facebook</module>
+  <module platform="iphone">dk.napp.social</module>
+</modules>
+```
+
+### Learn by example:
 
 ```
 var btn = Ti.UI.createButton({
