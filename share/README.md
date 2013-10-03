@@ -19,12 +19,14 @@ The module uses [dk.napp.social](https://github.com/viezel/TiSocial.Framework) a
 ### Learn by example:
 
 ```
+var share = require('share');
+
 var btn = Ti.UI.createButton({
   title: 'Share'
 });
 
 btn.addEventListener('click', function () {
-  require('share').share({
+  share.share({
     text: 'Text to share',
     description: 'Alternative text used in Facebook feed-dialog',
     url: 'http://url.to.share',
@@ -61,4 +63,16 @@ btn.addEventListener('click', function () {
       if (e.platform) alert('Platform used: ' + e.platform);
   });
 });
+
+share.twitter({
+    text: 'Foo'
+}, function () {});
+
+share.facebook({
+    text: 'Foo'
+}, function () {});
+
+share.mail({
+    text: 'Foo'
+}, function () {});
 ```
