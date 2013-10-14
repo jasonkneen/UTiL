@@ -6,8 +6,8 @@ The iOS and Android implementations have differences in both registering for and
 
 ## How?
 
-### Blog
-Read the blog: [http://fokkezb.nl/2013/10/14/setting-up-urban-airship/](http://fokkezb.nl/2013/10/14/setting-up-urban-airship/) for a complete walk-through on setting up Urban Airship with this wrapper.
+### Read the blog
+On [http://fokkezb.nl/2013/10/14/setting-up-urban-airship/](http://fokkezb.nl/2013/10/14/setting-up-urban-airship/) you'll find a complete walk-through on setting up Urban Airship with this wrapper.
 
 ### Learn by example
 ```javascript
