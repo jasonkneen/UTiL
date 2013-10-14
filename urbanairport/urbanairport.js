@@ -1,23 +1,3 @@
-/*
-
-Android
-- In app: callback
-- Uit app: callback
-- App uit: niets
-- App uit + open: niets
-- App uit + Click: callback (in alloy.js!)
-
-iOS
-- In app: callback
-- Uit app: niets
-- Uit app + tap: callback
-- App uit: niets
-- App uit + open: niets
-- App uit + Click: callback
-
-*/
-
-
 // Classic Titanium compatibility
 var _ = _ || require((typeof ENV_TEST === 'boolean') ? 'alloy' : 'underscore')._,
     OS_IOS = Ti.Platform.name === 'iPhone OS',
@@ -26,19 +6,16 @@ var _ = _ || require((typeof ENV_TEST === 'boolean') ? 'alloy' : 'underscore')._
 // Actual module we're going to extend
 var urbanairship = require('ti.urbanairship');
 
-// General callback
-var callback = null;
-
-// Options
-var sound = true,
-    debug = (typeof ENV_PRODUCTION === 'boolean' ? !ENV_PRODUCTION : false),
-    compatibility = false;
+var callback,
+    sound = true,
+    debug = (typeof ENV_PRODUCTION === 'boolean' ? !ENV_PRODUCTION : false);
 
 // Android-only vars
 if (OS_ANDROID) {
     var pendingTags = null,
         pendingAlias = null,
-        hashes = [],
+        compatibility = false,
+        compatibilityStack = [],
         vibrate = true;
 }
 
@@ -73,10 +50,13 @@ urbanairship.register = function(config) {
 
                     // compatibility
                 case 'compatibility':
-                    compatibility = !! val;
 
-                    if (typeof config.showOnAppClick === 'undefined') {
-                        that.showOnAppClick = compatibility;
+                    if (OS_ANDROID) {
+                        compatibility = !! val;
+
+                        if (typeof config.showOnAppClick === 'undefined') {
+                            that.showOnAppClick = compatibility;
+                        }
                     }
 
                     break;
@@ -315,11 +295,11 @@ if (OS_ANDROID) {
         if (compatibility) {
             var hash = Ti.Utils.sha1(JSON.stringify([e.payload,e.message]));
 
-            if (hashes.indexOf(hash) !== -1) {
+            if (compatibilityStack.indexOf(hash) !== -1) {
                 return;
             }
 
-            hashes.push(hash);
+            compatibilityStack.push(hash);
         }
 
         e.type = 'callback';
@@ -351,8 +331,11 @@ function logger(label, data, level) {
         level = 'debug';
     }
 
-    if (level !== 'debug' || debug) {
-        Ti.API[level]('[URBANAIRPORT] ' + label + (data ? ': ' + JSON.stringify(data, null, '\t') : ''));
+    // No DRY code due to https://github.com/dbankier/TiShadow/issues/147
+    if (level === 'debug') {
+        Ti.API.debug('[URBANAIRPORT] ' + label + (data ? ': ' + JSON.stringify(data, null, '\t') : ''));
+    } else {
+        Ti.API.error('[URBANAIRPORT] ' + label + (data ? ': ' + JSON.stringify(data, null, '\t') : ''));
     }
 }
 
