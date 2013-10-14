@@ -178,7 +178,7 @@ function _mail(args) {
     var emailDialog = Ti.UI.createEmailDialog({
         subject: args.description || args.text,
         html: true,
-        messageBody: args.body || args.text + "<br /><br />" + args.url,
+        messageBody: args.body || args.text + (args.url ? "<br /><br />" + args.url : ''),
     });
 
     if (args.image_blob) {
