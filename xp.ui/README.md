@@ -1,7 +1,8 @@
 # XP.UI
 CommonJS module providing cross-platform UI elements.
 
-Available: `NavigationWindow`.
+### Available:
+* `NavigationWindow`.
 
 Read the blog at: [http://fokkezb.nl/2013/10/21/cross-platform-ui/](http://fokkezb.nl/2013/10/21/cross-platform-ui/)
 
@@ -15,7 +16,7 @@ This will instruct Alloy to require the `xp.ui.js` CommonJS module and call `cre
 
 For iOS, the module creates an actual `Ti.UI.iOS.NavigationWindow` and returns it and the flow continues like it would without *XP.UI*.
 
-For other platforms, it creates a regular `Ti.UI.Window`, but returns an intermediate object that exposes NavigationWindow-like methods like `open`, `close`, `openWindow` and `closeWindow`.
+For other platforms, it creates and returns an intermediate object that exposes `Ti.UI.iOS.NavigationWindow`-like `openWindow` and `closeWindow` methods. Two more `open` and `close` methods will act on the root window wrapped by the `NavigationWindow` tags, giving exact the same behavior as on iOS.
 
 Unless you pass `swipeBack: false` as an option, it will add a swipe-eventlistener to close the window when the user swipes to the right, like it does on iOS7. For Android, it add `slide_in_left` and `slide_out_right` enter/exit animations unless you pass `animated: false` as an option.
 
