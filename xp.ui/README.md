@@ -33,7 +33,7 @@ This module leverages Alloy's 'new' `module` attribute to provide cross-platform
 
 This will instruct Alloy to require the `xp.ui.js` CommonJS module and call `createNavigationWindow` on that module instead of `Ti.UI.iOS` to which this tag normally maps.
 
-For iOS, the module creates an actual `Ti.UI.iOS.NavigationWindow` and returns it and the flow continues like it would without *XP.UI*.
+For iOS, the module creates an actual `Ti.UI.iOS.NavigationWindow` and returns it and the flow continues like it would normally. This is possible because we're fortunate that Alloy does still recognize the tag as being a NavigationWindow and thus passes the wrapped window via its creation-arguments instead of calling `add()` which is the default for module-provided views that wrap others.
 
 For other platforms, it creates and returns an intermediate object that exposes `Ti.UI.iOS.NavigationWindow`-like `openWindow` and `closeWindow` methods. Two more `open` and `close` methods will act on the root window wrapped by the `NavigationWindow` tags, giving exact the same behavior as on iOS.
 
