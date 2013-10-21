@@ -33,7 +33,7 @@ Unless you pass `swipeBack: false` as an option, it will add a swipe-eventlisten
 </Alloy>
 ```
 
-**Cross-platform:***
+**Cross-platform:** (spot the difference)
 ```xml
 <Alloy>
   <NavigationWindow module="xp.ui">
