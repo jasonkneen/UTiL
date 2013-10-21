@@ -3,6 +3,9 @@ A collection of utility scripts for [Appcelerator](http://www.appcelerator.com)'
 
 *This is a public, but personal library of utility scripts. They may change at any time without notice! Feel free to fork and contribute, but I'll decide what PR's to accept based on their potential use for my projects.*
 
+## [XP.UI](https://github.com/FokkeZB/UTiL/tree/master/xp.ui)
+CommonJS module providing cross-platform UI elements.
+
 ## [Urban Airport](https://github.com/FokkeZB/UTiL/tree/master/urbanairport)
 CommonJS module wrapping Appcelerator's iOS and Android modules for Urban Airship.
 
