@@ -26,13 +26,14 @@ if (OS_IOS) {
 }
 
 urbanairship.register = function(config) {
-    var that = this;
 
     if (config) {
 
         if (debug || config.debug !== false) {
             logger('INIT', config);
         }
+
+        var that = this;
 
         _.each(config, function(val, key) {
 
@@ -73,11 +74,11 @@ urbanairship.register = function(config) {
                     // Smart methods
 
                 case 'tags':
-                    that.setTags(val);
+                    that.resetTags(val);
                     break;
 
                 case 'alias':
-                    that.setAlias(val);
+                    that.resetAlias(val);
                     break;
 
                     // Used for enabling push options
@@ -130,10 +131,12 @@ urbanairship.register = function(config) {
         });
     }
 
-    that.enable();
+    this.enable();
+
+    return this;
 };
 
-urbanairship.setTags = function(tags) {
+urbanairship.resetTags = function(tags) {
 
     // We accept a single string as well
     if (typeof tags === 'string') {
@@ -142,11 +145,13 @@ urbanairship.setTags = function(tags) {
 
     // We need to be flying on Android
     if (OS_ANDROID && !this.isFlying) {
-        pendingTags = pendingTags;
+        pendingTags = tags;
         return;
     }
 
     this.tags = tags;
+
+    return this;
 };
 
 urbanairship.addTags = function(tags) {
@@ -163,9 +168,11 @@ urbanairship.addTags = function(tags) {
     }
 
     this.tags = _.union(this.tags || [], tags);
+
+    return this;
 };
 
-urbanairship.setAlias = function(alias) {
+urbanairship.resetAlias = function(alias) {
 
     // We need to be flying on Android
     if (OS_ANDROID && !this.isFlying) {
@@ -174,6 +181,8 @@ urbanairship.setAlias = function(alias) {
     }
 
     this.alias = alias;
+
+    return this;
 };
 
 urbanairship.enable = function() {
@@ -241,6 +250,8 @@ urbanairship.enable = function() {
     if (OS_ANDROID) {
         that.pushEnabled = true;
     }
+
+    return this;
 };
 
 urbanairship.disable = function() {
@@ -252,6 +263,8 @@ urbanairship.disable = function() {
     if (OS_ANDROID) {
         this.pushEnabled = false;
     }
+
+    return this;
 };
 
 if (OS_ANDROID) {
