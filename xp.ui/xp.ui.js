@@ -1,5 +1,4 @@
 if (!OS_IOS) {
-
     var NavigationWindow = function(args) {
         this.args = args;
     };
@@ -18,6 +17,18 @@ if (!OS_IOS) {
         if (OS_ANDROID && options.animated !== false) {
             options.activityEnterAnimation = Ti.Android.R.anim.slide_in_left;
             options.activityExitAnimation = Ti.Android.R.anim.slide_out_right;
+        }
+
+        if (OS_ANDROID && options.isChild){
+            window.addEventListener('open',function(){
+                var activity=window.getActivity();
+                if (activity.actionBar){
+                    activity.actionBar.displayHomeAsUp=true;
+                    activity.actionBar.onHomeIconItemSelected=function(){
+                        window.close();
+                    };
+                }
+            })
         }
 
         if (options.swipeBack !== false) {
@@ -44,7 +55,6 @@ if (!OS_IOS) {
 }
 
 exports.createNavigationWindow = function(args) {
-
     if (OS_IOS) {
         return Ti.UI.iOS.createNavigationWindow(args);
 
