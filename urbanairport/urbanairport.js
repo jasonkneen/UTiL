@@ -172,6 +172,24 @@ urbanairship.addTags = function(tags) {
     return this;
 };
 
+urbanairship.removeTags = function(tags) {
+
+    // We accept a single string as well
+    if (typeof tags === 'string') {
+        tags = [tags];
+    }
+
+    // We need to be flying on Android
+    if (OS_ANDROID && !this.isFlying) {
+        pendingTags = _.difference(pendingTags || [], tags);
+        return;
+    }
+
+    this.tags = _.difference(this.tags || [], tags);
+
+    return this;
+};
+
 urbanairship.resetAlias = function(alias) {
 
     // We need to be flying on Android
