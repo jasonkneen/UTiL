@@ -58,4 +58,7 @@ urbanairport.disable(); // enable();
  
 // Append tags instead of resetting them
 urbanairport.addTags('foo'); // Both single and Array supported
+
+// Remove one or more tags
+urbanairport.removeTags(['foo','bar']); // Both single and Array supported
 ```
