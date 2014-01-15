@@ -2,7 +2,12 @@
 CommonJS module providing cross-platform UI elements.
 
 ### Available:
-* `NavigationWindow`.
+* `NavigationWindow`
+
+    Emulates the `Ti.UI.iOS.NavigationWindow` for Android.
+* `Window`
+
+    Returns a `Ti.UI.Window` on iOS and `Ti.UI.View` on others.
 
 Read the blog at: [http://fokkezb.nl/2013/10/21/cross-platform-ui/](http://fokkezb.nl/2013/10/21/cross-platform-ui/)
 
