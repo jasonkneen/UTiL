@@ -28,112 +28,116 @@ if (OS_IOS) {
 urbanairship.register = function(config) {
 
     if (config) {
-
-        if (debug || config.debug !== false) {
-            logger('INIT', config);
-        }
-
-        var that = this;
-
-        _.each(config, function(val, key) {
-
-            switch (key) {
-
-                // callback
-                case 'callback':
-                    callback = val;
-                    break;
-
-                    // debug
-                case 'debug':
-                    debug = !! val;
-                    break;
-
-                    // compatibility
-                case 'compatibility':
-
-                    if (OS_ANDROID) {
-                        compatibility = !! val;
-
-                        if (typeof config.showOnAppClick === 'undefined') {
-                            that.showOnAppClick = compatibility;
-                        }
-                    }
-
-                    break;
-
-                // iOS-only so maybe better always use config file
-                case 'options':
-
-                    if (OS_IOS) {
-                        that.options = val;
-                    }
-
-                    break;
-
-                    // Smart methods
-
-                case 'tags':
-                    that.resetTags(val);
-                    break;
-
-                case 'alias':
-                    that.resetAlias(val);
-                    break;
-
-                    // Used for enabling push options
-
-                case 'sound':
-                    sound = !! val;
-                    break;
-
-                case 'vibrate':
-
-                    if (OS_ANDROID) {
-                        vibrate = !! val;
-                    }
-
-                    break;
-
-                case 'badge':
-
-                    if (OS_IOS) {
-                        badge = !! val;
-                    }
-
-                    break;
-
-                case 'alert':
-
-                    if (OS_IOS) {
-                        alert = !! val;
-                    }
-
-                    break;
-
-                    // Allows to set pretty much any property or method
-                default:
-
-                    if (typeof that[key] !== 'undefined') {
-
-                        if (_.isFunction(that[key])) {
-                            that[key](val);
-                            logger('calling ' + key, val);
-
-                        } else {
-                            that[key] = val;
-                            logger('setting ' + key, val);
-                        }
-                    }
-
-                    break;
-            }
-        });
+        this.config(config);
     }
 
     this.enable();
 
     return this;
+};
+
+urbanairship.config = function(config) {
+
+    if (debug || config.debug !== false) {
+        logger('INIT', config);
+    }
+
+    var that = this;
+
+    _.each(config, function(val, key) {
+
+        switch (key) {
+
+            // callback
+            case 'callback':
+                callback = val;
+                break;
+
+                // debug
+            case 'debug':
+                debug = !! val;
+                break;
+
+                // compatibility
+            case 'compatibility':
+
+                if (OS_ANDROID) {
+                    compatibility = !! val;
+
+                    if (typeof config.showOnAppClick === 'undefined') {
+                        that.showOnAppClick = compatibility;
+                    }
+                }
+
+                break;
+
+                // iOS-only so maybe better always use config file
+            case 'options':
+
+                if (OS_IOS) {
+                    that.options = val;
+                }
+
+                break;
+
+                // Smart methods
+
+            case 'tags':
+                that.resetTags(val);
+                break;
+
+            case 'alias':
+                that.resetAlias(val);
+                break;
+
+                // Used for enabling push options
+
+            case 'sound':
+                sound = !! val;
+                break;
+
+            case 'vibrate':
+
+                if (OS_ANDROID) {
+                    vibrate = !! val;
+                }
+
+                break;
+
+            case 'badge':
+
+                if (OS_IOS) {
+                    badge = !! val;
+                }
+
+                break;
+
+            case 'alert':
+
+                if (OS_IOS) {
+                    alert = !! val;
+                }
+
+                break;
+
+                // Allows to set pretty much any property or method
+            default:
+
+                if (typeof that[key] !== 'undefined') {
+
+                    if (_.isFunction(that[key])) {
+                        that[key](val);
+                        logger('calling ' + key, val);
+
+                    } else {
+                        that[key] = val;
+                        logger('setting ' + key, val);
+                    }
+                }
+
+                break;
+        }
+    });
 };
 
 urbanairship.resetTags = function(tags) {
@@ -324,7 +328,7 @@ if (OS_ANDROID) {
 
         // Make sure we don't call the same notification twice
         if (compatibility) {
-            var hash = Ti.Utils.sha1(JSON.stringify([e.payload,e.message]));
+            var hash = Ti.Utils.sha1(JSON.stringify([e.payload, e.message]));
 
             if (compatibilityStack.indexOf(hash) !== -1) {
                 return;
