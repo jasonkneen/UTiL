@@ -27,7 +27,7 @@ exports.createView = function(args) {
 			if (targetFile.exists()) {
 
 				// use & return
-				args.backgroundImage = targetFile.read();
+				args.backgroundImage = targetFile.nativePath;
 
 				return Ti.UI.createView(args);
 			}
@@ -82,6 +82,7 @@ function _setBackgroundImage(view, targetWidth, targetHeight) {
 		var originalFile = Ti.Filesystem.getFile(originalPath);
 
 		if (!originalFile.exists()) {
+			console.error('[UI] backgroundImage not found: ' + originalPath);
 			return;
 		}
 
@@ -125,10 +126,10 @@ function _setBackgroundImage(view, targetWidth, targetHeight) {
 
 		targetFile.write(originalBlob);
 
-		view.backgroundImage = originalBlob;
+		view.backgroundImage = targetFile.nativePath;
 
 	} else {
-		view.backgroundImage = targetFile.read();
+		view.backgroundImage = targetFile.nativePath;
 	}
 }
 
