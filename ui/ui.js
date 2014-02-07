@@ -123,7 +123,7 @@ function _setBackgroundImage(view, targetWidth, targetHeight) {
 			});
 		}
 
-		targetFile.write(croppedBlob);
+		targetFile.write(originalBlob);
 
 		view.backgroundImage = originalBlob;
 
