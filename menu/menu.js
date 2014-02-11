@@ -92,7 +92,7 @@ function Menu(_win) {
             });
         };
 
-        win.activity.invalidateOptionsMenu();
+        activity.invalidateOptionsMenu();
 
         if (activity.actionBar) {
             actionBar = activity.actionBar;
