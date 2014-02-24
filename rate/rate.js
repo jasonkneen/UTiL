@@ -128,14 +128,14 @@ function _trigger(_points, _show) {
 
     if (Ti.App.Properties.getBool('rate_never', false) === true) {
         Ti.API.debug('[RATE] Rating disabled by user.');
-        return;
+        return false;
     }
 
     var rate_done = Ti.App.Properties.getString('rate_done');
 
     if (exports.eachVersion ? (rate_done === Ti.App.version) : rate_done) {
         Ti.API.debug('[RATE] Rating already done.');
-        return;
+        return false;
     }
 
     var points = Ti.App.Properties.getInt('rate_points', 0);
@@ -173,11 +173,13 @@ function _trigger(_points, _show) {
 
         ask();
 
+        return true;
+
     } else {
         Ti.App.Properties.setInt('rate_points', points);
     }
 
-    return;
+    return false;
 }
 
 function _lookup(_callback) {

@@ -52,13 +52,13 @@ rate.appleId = 123456;
 // Reset all triggers (including if user chose 'never', so be aware!)
 rate.reset();
  
-// Add 1 point and test if we should ask
+// Add 1 point and test if we should ask (returns TRUE if question was aked)
 rate.plus();
  
 // Add more points and do not test
 rate.plus(5, false);
  
-// Just test
+// Just test (returns TRUE if question was aked)
 rate.test();
  
 // Just ask
