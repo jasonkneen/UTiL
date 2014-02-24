@@ -3,6 +3,9 @@ A collection of utility scripts for [Appcelerator](http://www.appcelerator.com)'
 
 *This is a public, but personal library of utility scripts. They may change at any time without notice! Feel free to fork and contribute, but I'll decide what PR's to accept based on their potential use for my projects.*
 
+## [Google Analytics](https://github.com/FokkeZB/UTiL/tree/master/ga)
+CommonJS module simplifying API for the ti.googleanalytics module.
+
 ## [update](https://github.com/FokkeZB/UTiL/tree/master/update)
 CommonJS module checking for updates of the app.
 
