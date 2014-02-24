@@ -22,7 +22,7 @@ exports.event = function event(category, action, label, value) {
   return init().send(MapBuilder.createEvent(category, action, label, value).build());
 };
 
-exports.scocial = function social(network, action, target) {
+exports.social = function social(network, action, target) {
 
   if (typeof network === 'object') {
     var args = network;
