@@ -66,6 +66,7 @@ function init() {
 
   if (!GoogleAnalytics) {
     GoogleAnalytics = require('ti.googleanalytics');
+    GoogleAnalytics.setLogLevel(GoogleAnalytics.LOG_ERROR);
     tracker = GoogleAnalytics.getTracker(exports.id);
     Fields = GoogleAnalytics.getFields();
     MapBuilder = GoogleAnalytics.getMapBuilder();
