@@ -35,8 +35,8 @@ exports.createView = function(args) {
 
 		var view = Ti.UI.createView(args);
 
-		// no need to wait for postlayout if we know target width & height
-		if (args.width && args.height) {
+		// no need to wait for postlayout if we know target absolute width & height
+		if (_isAbsolute(args.width) && _isAbsolute(args.height)) {
 			_setBackgroundImage(view, args.width, args.height);
 
 		} else {
@@ -58,9 +58,9 @@ exports.createView = function(args) {
  * @param  {String} targetId
  * @return {Ti.Filesystem.File}
  */
-function _getTargetFile(originalPath, targetId) {
+function _getTargetFile(originalPath, targetId, parent) {
 	var targetFilename = Ti.Utils.sha1(originalPath + '_' + targetId) + originalPath.substr(originalPath.lastIndexOf('.'));
-	var targetFile = Ti.Filesystem.getFile(Ti.Filesystem.applicationCacheDirectory, targetFilename);
+	var targetFile = Ti.Filesystem.getFile(parent || Ti.Filesystem.applicationCacheDirectory, targetFilename);
 
 	return targetFile;
 }
@@ -76,61 +76,99 @@ function _setBackgroundImage(view, targetWidth, targetHeight) {
 	var originalPath = view._backgroundImage;
 	var targetId = view._backgroundTarget || targetWidth + '_' + targetHeight;
 
-	var targetFile = _getTargetFile(originalPath, targetId);
+	var originalFile,
+		targetFile = _getTargetFile(originalPath, targetId);
 
 	if (!targetFile.exists()) {
-		var originalFile = Ti.Filesystem.getFile(originalPath);
 
-		if (!originalFile.exists()) {
-			console.error('[UI] backgroundImage not found: ' + originalPath);
-			return;
-		}
+		if (originalPath.indexOf('://') !== -1) {
+			originalFile = _getTargetFile(originalPath, 'tmp', Ti.Filesystem.tempDirectory);
 
-		// orginal specs
-		var originalBlob = originalFile.read();
-		var originalWidth = originalBlob.width;
-		var originalHeight = originalBlob.height;
-		var originalRatio = originalWidth / originalHeight;
+			var xhr = Ti.Network.createHTTPClient({
+				onload: function(e) {
 
-		// target specs (converted to px)
-		targetWidth = Ti.UI.convertUnits('' + targetWidth, Ti.UI.UNIT_PX);
-		targetHeight = Ti.UI.convertUnits('' + targetHeight, Ti.UI.UNIT_PX);
-		var targetRatio = targetWidth / targetHeight;
+					if (!originalFile.write(this.responseData)) {
+						console.error('[UI] Could not write downloaded file to: ' + originalFile.nativePath);
+						return;
+					}
 
-		var resizeWidth, resizeHeight;
-
-		// fill width, overflow height
-		if (targetRatio > originalRatio) {
-			resizeWidth = targetWidth;
-			resizeHeight = Math.ceil(resizeWidth / originalRatio);
-		}
-
-		// fill height, overflow width
-		else {
-			resizeHeight = targetHeight;
-			resizeWidth = Math.ceil(resizeHeight * originalRatio);
-		}
-
-		// resize, if neeeded
-		if (originalWidth !== resizeWidth || originalHeight !== resizeHeight) {
-			originalBlob = originalBlob.imageAsResized(resizeWidth, resizeHeight);
-		}
-
-		// crop, if needed
-		if (resizeWidth !== targetWidth || resizeHeight !== targetHeight) {
-			originalBlob = originalBlob.imageAsCropped({
-				width: targetWidth,
-				height: targetHeight
+					_resizeBackgroundImage(view, targetWidth, targetHeight, originalFile, targetFile);
+				},
+				onerror: function(e) {
+					console.error('[UI] Could not downloaded image: ' + e.error);
+				}
 			});
+			xhr.open('GET', originalPath);
+			xhr.send();
+
+			return;
+
+		} else {
+			originalFile = Ti.Filesystem.getFile(originalPath);
+			_resizeBackgroundImage(view, targetWidth, targetHeight, originalFile, targetFile);
 		}
-
-		targetFile.write(originalBlob);
-
-		view.backgroundImage = targetFile.nativePath;
 
 	} else {
 		view.backgroundImage = targetFile.nativePath;
 	}
+}
+
+/**
+ * Resizes the backgroundImage.
+ * @param {Ti.UI.View} view
+ * @param {Number} targetWidth
+ * @param {Number} targetHeight
+ * @param {String} originalPath
+ * @param {Ti.Filesystem.File} targetFile
+ */
+function _resizeBackgroundImage(view, targetWidth, targetHeight, originalFile, targetFile) {
+
+	if (!originalFile.exists()) {
+		console.error('[UI] backgroundImage not found: ' + originalFile.nativePath);
+		return;
+	}
+
+	// orginal specs
+	var originalBlob = originalFile.read();
+	var originalWidth = originalBlob.width;
+	var originalHeight = originalBlob.height;
+	var originalRatio = originalWidth / originalHeight;
+
+	// target specs (converted to px)
+	targetWidth = Ti.UI.convertUnits('' + targetWidth, Ti.UI.UNIT_PX);
+	targetHeight = Ti.UI.convertUnits('' + targetHeight, Ti.UI.UNIT_PX);
+	var targetRatio = targetWidth / targetHeight;
+
+	var resizeWidth, resizeHeight;
+
+	// fill width, overflow height
+	if (targetRatio > originalRatio) {
+		resizeWidth = targetWidth;
+		resizeHeight = Math.ceil(resizeWidth / originalRatio);
+	}
+
+	// fill height, overflow width
+	else {
+		resizeHeight = targetHeight;
+		resizeWidth = Math.ceil(resizeHeight * originalRatio);
+	}
+
+	// resize, if neeeded
+	if (originalWidth !== resizeWidth || originalHeight !== resizeHeight) {
+		originalBlob = originalBlob.imageAsResized(resizeWidth, resizeHeight);
+	}
+
+	// crop, if needed
+	if (resizeWidth !== targetWidth || resizeHeight !== targetHeight) {
+		originalBlob = originalBlob.imageAsCropped({
+			width: targetWidth,
+			height: targetHeight
+		});
+	}
+
+	targetFile.write(originalBlob);
+
+	view.backgroundImage = targetFile.nativePath;
 }
 
 /**
@@ -147,4 +185,12 @@ function _onPostLayout(e) {
 
 	// continue now that we know width & height
 	_setBackgroundImage(view, size.width, size.height);
+}
+
+/**
+ * Check is a dimension is absolute.
+ * @param  {mixed} Dimension
+ */
+function _isAbsolute(dimension) {
+	return dimension && dimension.toString().match(/^[1-9]+[0-9]*[a-z]*$/);
 }
