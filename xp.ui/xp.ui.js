@@ -82,3 +82,38 @@ exports.createWindow = function(args) {
         return Ti.UI.createView(args);
     }
 };
+
+/*
+Fix TextArea.hintText property
+*/
+exports.createTextArea = function(args) {
+	var $textArea = Ti.UI.createTextArea(args);
+
+	if (args.hintText) {
+		$textArea.originalColor = $textArea.color || '#000';
+		if (!$textArea.value) {
+			$textArea.applyProperties({
+				value: $textArea.hintText,
+				color: '#ccc'
+			});
+		}
+
+		$textArea.addEventListener('focus', function(e){
+			e.source.applyProperties({
+				value: '',
+				color: e.source.originalColor
+			});
+		});
+
+		$textArea.addEventListener('blur', function(e){
+			if (!e.source.value) {
+				e.source.applyProperties({
+					value: e.source.hintText,
+					color: '#ccc'
+				});
+			}
+		});
+	}
+
+	return $textArea;
+};
