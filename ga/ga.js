@@ -44,10 +44,10 @@ exports.timing = function timing(category, intervalInMilliseconds, name, label) 
     label = args.label;
   }
 
-  return init().send(MapBuilder.createSocial(category, intervalInMilliseconds, name, label).build());
+  return init().send(MapBuilder.createTiming(category, intervalInMilliseconds, name, label).build());
 };
 
-exports.transaction = function social(transactionId, affiliation, revenue, tax, shipping, currencyCode) {
+exports.transaction = function transaction(transactionId, affiliation, revenue, tax, shipping, currencyCode) {
 
   if (typeof transactionId === 'object') {
     var args = transactionId;
@@ -59,7 +59,7 @@ exports.transaction = function social(transactionId, affiliation, revenue, tax, 
     currencyCode = args.currencyCode || args.currency;
   }
 
-  return init().send(MapBuilder.createSocial(transactionId, affiliation, revenue, tax, shipping, currencyCode).build());
+  return init().send(MapBuilder.createTransaction(transactionId, affiliation, revenue, tax, shipping, currencyCode).build());
 };
 
 function init() {
