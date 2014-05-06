@@ -131,6 +131,11 @@ exports.createTextArea = function(args) {
  * 	  Ti.API.info("Button clicked");
  * });
  * 
+ * addSingleEventListener will only execure the callback once, and remove it afterwards.
+ * 
+ * Example usage:
+ * $.btnName.addSingleEventListener("longpress", buttonPressedForALongTime);
+ * 
  * @param {Object} args
  */
 exports.createButton = function(args){
@@ -154,6 +159,26 @@ exports.createButton = function(args){
 			}
 			
 		});
+	};
+	
+	$button.addSingleEventListener = function(eventName, func){
+		var triggered = false;
+		if(!_.isFunction(func)){
+			Ti.API.error("[XP.UI Button] ERROR: Single Event Listener callback must be a function");
+			return;
+		}
+		
+		function singularCallback(e){
+			if(!triggered){
+				triggered = true;
+				// run once call stack is cleared
+				_.defer(function(){
+					func(e);
+					$button.removeEventListener(eventName, singularCallback);
+				});
+			}	
+		}
+		$button.addEventListener(eventName, singularCallback);
 	};
 	
 	return $button;
