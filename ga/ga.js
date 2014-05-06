@@ -62,6 +62,10 @@ exports.transaction = function transaction(transactionId, affiliation, revenue, 
   return init().send(MapBuilder.createTransaction(transactionId, affiliation, revenue, tax, shipping, currencyCode).build());
 };
 
+exports.tracker = function tracker() {
+  return init();
+}
+
 function init() {
 
   if (!GoogleAnalytics) {
