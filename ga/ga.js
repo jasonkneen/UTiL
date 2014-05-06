@@ -67,7 +67,9 @@ exports.tracker = function tracker() {
 }
 
 exports.logLevel = function logLevel(mode) {
-  return init().setLogLevel(GoogleAnalytics['LOG_' + (mode || 'ERROR').toUpperCase()]);
+  init();
+  
+  return GoogleAnalytics.setLogLevel(GoogleAnalytics['LOG_' + (mode || 'ERROR').toUpperCase()]);
 };
 
 function init() {
