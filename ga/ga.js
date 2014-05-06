@@ -66,28 +66,8 @@ exports.tracker = function tracker() {
   return init();
 }
 
-exports.logLevel = function(mode) {
-	
-	switch(mode) {
-		case "none":
-			GoogleAnalytics.setLogLevel(GoogleAnalytics.LOG_NONE);
-			break;
-		case "error":
-			GoogleAnalytics.setLogLevel(GoogleAnalytics.LOG_ERROR);
-			break;
-		case "warning":
-			GoogleAnalytics.setLogLevel(GoogleAnalytics.LOG_WARNING);
-			break;
-		case "info":
-			GoogleAnalytics.setLogLevel(GoogleAnalytics.LOG_INFO);
-			break;
-		case "verbose":
-			GoogleAnalytics.setLogLevel(GoogleAnalytics.LOG_VERBOSE);
-			break;
-		default:
-			GoogleAnalytics.setLogLevel(GoogleAnalytics.LOG_ERROR);
-			break;
-	}
+exports.logLevel = function logLevel(mode) {
+  return init().setLogLevel(GoogleAnalytics['LOG_' + (mode || 'ERROR').toUpperCase()]);
 };
 
 function init() {
