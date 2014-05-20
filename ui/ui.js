@@ -194,3 +194,24 @@ function _onPostLayout(e) {
 function _isAbsolute(dimension) {
 	return dimension && dimension.toString().match(/^[1-9]+[0-9]*[a-z]*$/);
 }
+
+// helper
+var isAndroid = Ti.Platform.osname == "android";
+
+/**
+ * Fixes the auto focus on textfield on android 
+ */ 
+exports.createTextField = function(args) {
+	if(isAndroid){
+		var view = Ti.UI.createTextField(args);
+		
+		// fix auto focus
+		view.addEventListener('focus', function focusFix(e){
+		    e.source.blur();
+		    e.source.removeEventListener('focus', focusFix);
+		});
+		return view;
+	} else {
+		return Ti.UI.createTextField(args);
+	}		
+};
