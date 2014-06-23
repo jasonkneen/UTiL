@@ -111,15 +111,15 @@ function _facebook(args) {
             if (facebook_appid === false) {
                 return;
             }
-
-            if (_cmpVersion(Ti.version, '3.1.0') >= 0) {
-                if (!facebook_module) {
-                    facebook_module = require('facebook');
-                    facebook_module.appid = facebook_appid;
-                }
-            } else {
-                Ti.Facebook.appid = facebook_appid;
+        }
+        
+        if (_cmpVersion(Ti.version, '3.1.0') >= 0) {
+            if (!facebook_module) {
+                facebook_module = require('facebook');
+                facebook_module.appid = facebook_appid;
             }
+        } else {
+            Ti.Facebook.appid = facebook_appid;
         }
 
         if (facebook_module) {
