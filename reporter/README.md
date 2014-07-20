@@ -37,8 +37,8 @@ if (Ti.Platform.deployType === 'production') {
 reporter = require('reporter');
 reporter.recipients = 'mail@fokkezb.nl'; // or an array
 reporter.alert_title = 'Error'; // or 'reporter_alert_title' in 'strings.xml'
-reporter.alert_message = 'Please let me prepare a report for you to send to the developers.'; // or 'reporter_alert_title' in 'strings.xml'
-reporter.alert_no = 'No'; // or 'reporter_alert_title' in 'strings.xml'
-reporter.alert_yes = 'Yes'; // or 'reporter_alert_title' in 'strings.xml'
-reporter.alert_describe = 'Please describe what steps led to the error so the developers can reproduce the error'; // or 'reporter_alert_title' in 'strings.xml'
+reporter.alert_message = 'Please let me prepare a report for you to send to the developers.'; // or 'reporter_alert_message' in 'strings.xml'
+reporter.alert_no = 'No'; // or 'reporter_alert_no' in 'strings.xml'
+reporter.alert_yes = 'Yes'; // or 'reporter_alert_yes' in 'strings.xml'
+reporter.alert_describe = 'Please describe what steps led to the error so the developers can reproduce the error'; // or 'reporter_email_describe' in 'strings.xml'
 ```
