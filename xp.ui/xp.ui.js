@@ -1,3 +1,5 @@
+var _ = require((typeof ENV_TEST === 'boolean') ? 'alloy' : 'underscore')._;
+
 if (!OS_IOS) {
 
     var NavigationWindow = function(args) {
@@ -116,3 +118,69 @@ exports.createTextArea = function(args) {
 
 	return $textArea;
 };
+
+
+/**
+ * Extends the UI Button with a click handler that only executes once
+ * even though the user taps multiple times.
+ * It resets once it has executed the clickhandler. 
+ *  
+ * Example usage: <Button module="xp.ui" id="btnName" />
+ * 
+ * $.btnName.addClickHandler(function(){
+ * 	  Ti.API.info("Button clicked");
+ * });
+ * 
+ * addSingleEventListener will only execure the callback once, and remove it afterwards.
+ * 
+ * Example usage:
+ * $.btnName.addSingleEventListener("longpress", buttonPressedForALongTime);
+ * 
+ * @param {Object} args
+ */
+exports.createButton = function(args){
+	var $button = Ti.UI.createButton(args);
+	$button.executed = false;
+	
+	
+	$button.addClickHandler = function(func){
+		if(!_.isFunction(func)){
+			Ti.API.error("[XP.UI Button] ERROR: Click handler must be a function");
+			return;
+		}
+		$button.addEventListener('click', function(e){
+			if(!e.source.executed){
+				e.source.executed = true;
+				// run once call stack is cleared
+				_.defer(function(){
+					func(e);
+					e.source.executed = false;
+				});
+			}
+			
+		});
+	};
+	
+	$button.addSingleEventListener = function(eventName, func){
+		var triggered = false;
+		if(!_.isFunction(func)){
+			Ti.API.error("[XP.UI Button] ERROR: Single Event Listener callback must be a function");
+			return;
+		}
+		
+		function singularCallback(e){
+			if(!triggered){
+				triggered = true;
+				// run once call stack is cleared
+				_.defer(function(){
+					func(e);
+					$button.removeEventListener(eventName, singularCallback);
+				});
+			}	
+		}
+		$button.addEventListener(eventName, singularCallback);
+	};
+	
+	return $button;
+};
+
