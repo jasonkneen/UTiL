@@ -59,7 +59,8 @@ exports.createView = function(args) {
  * @return {Ti.Filesystem.File}
  */
 function _getTargetFile(originalPath, targetId, parent) {
-	var targetFilename = Ti.Utils.sha1(originalPath + '_' + targetId) + originalPath.substr(originalPath.lastIndexOf('.'));
+    var basicPath = originalPath.replace(/(\?.*$)/g, "");
+    var targetFilename = Ti.Utils.sha1(basicPath + '_' + targetId) + basicPath.substr(basicPath.lastIndexOf('.'));
 	var targetFile = Ti.Filesystem.getFile(parent || Ti.Filesystem.applicationCacheDirectory, targetFilename);
 
 	return targetFile;
