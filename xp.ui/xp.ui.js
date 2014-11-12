@@ -116,3 +116,35 @@ exports.createTextArea = function(args) {
 
 	return $textArea;
 };
+
+exports.createLabel = function createLabel(args) {
+
+  if (OS_IOS && args.html) {
+    var html = args.html;
+
+    delete args.text;
+    delete args.html;
+
+    var label = Ti.UI.createLabel(args);
+    var ref = label;
+
+    var html2as = require('nl.fokkezb.html2as');
+
+    html2as(html, function(err, attr) {
+
+      if (err) {
+        console.error(err);
+
+      } else {
+        ref.attributedString = attr;
+      }
+
+      ref = null;
+    });
+
+    return label;
+
+  } else {
+    return Ti.UI.createLabel(args);
+  }
+};
