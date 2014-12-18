@@ -6,9 +6,6 @@ A collection of utility scripts for [Appcelerator](http://www.appcelerator.com)'
 ## [Error Reporter](https://github.com/FokkeZB/UTiL/tree/master/reporter)
 CommonJS module using `yy.logcatcher` to let the user report run-time errors.
 
-## [Google Analytics](https://github.com/FokkeZB/UTiL/tree/master/ga)
-CommonJS module simplifying API for the ti.googleanalytics module.
-
 ## [update](https://github.com/FokkeZB/UTiL/tree/master/update)
 CommonJS module checking for updates of the app.
 
