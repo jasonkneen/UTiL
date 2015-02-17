@@ -50,6 +50,10 @@ Since the `nl.fokkezb.html2as` module is async, the label will first return empt
 
 For some reason, on iOS a TextArea doesn't have a `hintText` property. This module adds event listeners for focus and blur to change the color and value to emulate the same behavior as a TextField has.
 
+## Tag: TextField
+
+Sometimes on iOS a TextField `hintText` property does not work. This module adds event listeners for focus and blur to change the color and value to emulate the same behavior as a TextField has on Android.
+
 ## Tag: Window
 
 For some modules, like NappDrawer, you need to have a Window on iOS and a View on Android. The module does exactly this.
@@ -71,7 +75,7 @@ For Android, it creates and returns an intermediate object that exposes `Ti.UI.i
 ```
 
 ### Swipe to go back
-Unless you set the `NavigationWindow`'s `swipeBack` attribute to `false` or pass this as an option to `openWindow`, the module will add a swipe-eventlistener to close the window when the user swipes to the right, just like it does on iOS7. For Android, it adds `slide_in_left` and `slide_out_right` enter/exit animations unless you pass `animated: false` as an option for `openWindow`.
+Unless you set the `NavigationWindow`'s `swipeBack` attribute to `false` or pass this as an option to `openWindow`, the module will add a swipe-eventlistener to close the window when the user swipes to the right, just like it does on iOS7. For Android, it adds `slide_in_left` and `slide_out_right` enter/exit animations unless you pass `animated: false` as an option for `openWindow`.For the animation to work properly place the custom xml files in the platform -> android -> res -> anim folder
 
 ### Action Bar
 If you target Android SDK 11 or higher the module will automatically add the [up arrow](http://developer.android.com/training/implementing-navigation/ancestral.html) to the action bar of all but the first window. Clicking on the home icon or arrow will close the window. You can disable this by setting the `NavigationWindow`'s `displayHomeAsUp` attribute to `false` or passing this as an option to `openWindow`.
