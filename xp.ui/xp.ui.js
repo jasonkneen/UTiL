@@ -22,8 +22,8 @@ if (!OS_IOS) {
         options.displayHomeAsUp = (typeof options.displayHomeAsUp === 'boolean') ? options.displayHomeAsUp : that.args.displayHomeAsUp;
 
         if (OS_ANDROID && options.animated !== false) {
-            options.activityEnterAnimation = Ti.Android.R.anim.slide_in_left;
-            options.activityExitAnimation = Ti.Android.R.anim.slide_out_right;
+            options.activityEnterAnimation = Ti.App.Android.R.anim.screen_slide_in_right;
+            options.activityExitAnimation = Ti.App.Android.R.anim.screen_slide_out_left;
         }
 
         if (options.swipeBack !== false) {
@@ -56,8 +56,8 @@ if (!OS_IOS) {
         options = options || {};
 
         if (OS_ANDROID && options.animated !== false) {
-            options.activityEnterAnimation = Ti.Android.R.anim.slide_in_left;
-            options.activityExitAnimation = Ti.Android.R.anim.slide_out_right;
+            options.activityEnterAnimation = Ti.App.Android.R.anim.screen_slide_in_left;
+            options.activityExitAnimation = Ti.App.Android.R.anim.screen_slide_out_right;
         }
 
         return window.close(options);
@@ -65,6 +65,7 @@ if (!OS_IOS) {
 }
 
 exports.createNavigationWindow = function(args) {
+	
     var navWin = OS_IOS ? Ti.UI.iOS.createNavigationWindow(args) : new NavigationWindow(args);
     
     if (args && args.id) {
@@ -115,6 +116,40 @@ exports.createTextArea = function(args) {
 	}
 
 	return $textArea;
+};
+
+exports.createTextField = function(args) {
+	var $textField = Ti.UI.createTextField(args);
+
+	if (args.hintText) {
+		$textField.originalColor = $textField.color || '#000';
+		if (!$textField.value) {
+			$textField.applyProperties({
+				value: $textField.hintText,
+				color: '#ccc'
+			});
+		}
+
+		$textField.addEventListener('focus', function(e){
+			if (e.source.value==e.source.hintText) {
+				e.source.applyProperties({
+					value: '',
+					color: e.source.originalColor
+				});
+			}
+		});
+
+		$textField.addEventListener('blur', function(e){
+			if (!e.source.value) {
+				e.source.applyProperties({
+					value: e.source.hintText,
+					color: '#ccc'
+				});
+			}
+		});
+	}
+
+	return $textField;
 };
 
 exports.createLabel = function createLabel(args) {
