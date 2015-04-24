@@ -28,8 +28,18 @@ The `createView` factory adds support for the [background-size:cover](https://de
 
 If you don't set a `width` and `height` property, it will add a `postlayout` event listener to get them when the view is layed out. Of course the resized images are cached, but if you don't want to wait for `postlayout`, then use the `backgroundTarget` property to pass a string to identify the target, but only if you know for sure the dimensions found using `postlayout` would always be the same for that particular view.
 
+
+
 ```
 <Alloy>
 	<View module="ui" backgroundImage="images/background.jpg" backgroundSize="cover" backgroundTarget="myView" />
+</Alloy>
+```
+
+Its also possible to use the property `orientationchange` to support the cover background to be rendered for both portrait and landscape layout. Dont mix this with the `backgroundTarget` property since it will disable this feature. 
+
+```
+<Alloy>
+	<View module="ui" backgroundImage="images/background.jpg" backgroundSize="cover" orientationchange="true" />
 </Alloy>
 ```
