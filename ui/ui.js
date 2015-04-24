@@ -35,6 +35,12 @@ exports.createView = function(args) {
 
 		var view = Ti.UI.createView(args);
 
+		// check for orientationChange
+		if (args.orientationChange && args.orientationChange === 'true') {
+			view._orientationChange = args.orientationChange;
+			delete args.orientationChange;
+		}
+
 		// no need to wait for postlayout if we know target absolute width & height
 		if (_isAbsolute(args.width) && _isAbsolute(args.height)) {
 			_setBackgroundImage(view, args.width, args.height);
@@ -180,11 +186,36 @@ function _onPostLayout(e) {
 	var view = e.source;
 	var size = view.size;
 
-	// only once
-	view.removeEventListener('postlayout', _onPostLayout);
+	if (view._orientationChange) {
+		// check for both images have been rendered
+		if (bothOrientationImagesRendered(view, size)) {
+			view.removeEventListener('postlayout', _onPostLayout);
+		}
+	} else {
+		// remove after the first time
+		view.removeEventListener('postlayout', _onPostLayout);
+	}
 
 	// continue now that we know width & height
 	_setBackgroundImage(view, size.width, size.height);
+}
+
+/**
+ * Check if we have rendered an image for portrait and landscape resolution
+ * @param {Ti.UI.View} view
+ * @param {Object} size
+ * @return {Boolean} result
+ */
+function bothOrientationImagesRendered(view, size) {
+	var targetFile = _getTargetFile(view._backgroundImage, size.width + '_' + size.height);
+	var targetFile2 = _getTargetFile(view._backgroundImage, size.height + '_' + size.width);
+
+	// both needed to be rendered
+	if (targetFile.exists() && targetFile2.exists()) {
+		return true;
+	}
+
+	return false;
 }
 
 /**
