@@ -40,6 +40,6 @@ Its also possible to use the property `orientationchange` to support the cover b
 
 ```
 <Alloy>
-	<View module="ui" backgroundImage="images/background.jpg" backgroundSize="cover" orientationchange="true" />
+	<View module="ui" backgroundImage="images/background.jpg" backgroundSize="cover" orientationChange="true" />
 </Alloy>
 ```
