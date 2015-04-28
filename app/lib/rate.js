@@ -107,7 +107,7 @@ function open() {
             return;
         }
 
-        Ti.Platform.openURL('http://itunes.apple.com/app/id' + exports.appleId);
+        Ti.Platform.openURL('https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8&id=' + exports.appleId);
     }
 
     return;
