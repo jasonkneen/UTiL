@@ -33,3 +33,11 @@ If you don't set a `width` and `height` property, it will add a `postlayout` eve
 	<View module="ui" backgroundImage="images/background.jpg" backgroundSize="cover" backgroundTarget="myView" />
 </Alloy>
 ```
+
+Its also possible to use the property `orientationChange` to support the cover background to be rendered for both portrait and landscape layout. Dont mix this with the `backgroundTarget` property since it will disable this feature. 
+
+```
+<Alloy>
+	<View module="ui" backgroundImage="images/background.jpg" backgroundSize="cover" orientationChange="true" />
+</Alloy>
+```
