@@ -1,0 +1,45 @@
+{
+  "name": "ti-html2as",
+  "version": "1.2.1",
+  "description": "HTML to Attributed String parser for Titanium",
+  "titaniumManifest": {
+    "guid": "5be532b5-9e73-4515-bd8e-5472b0bf52f2",
+    "moduleid": "nl.fokkezb.html2as"
+  },
+  "author": {
+    "name": "Fokke Zandbergen",
+    "email": "mail@fokkezb.nl",
+    "url": "http://fokkezb.nl"
+  },
+  "license": "LGPL-2.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fokkezb/ti-html2as.git"
+  },
+  "engines": {
+    "titaniumsdk": ">= 3.3.0"
+  },
+  "main": "nl.fokkezb.html2as.js",
+  "keywords": [
+    "titanium",
+    "titaniumifier",
+    "htmlparser",
+    "html",
+    "parser",
+    "attributed",
+    "string"
+  ],
+  "dependencies": {
+    "entities": "^1.1.1",
+    "grunt-titaniumifier": "^1.1.0",
+    "htmlparser2": "^3.8.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-titanium": "^0.3.1",
+    "grunt-titaniumifier": "^1.0.0-beta",
+    "grunt-zip": "^0.16.0",
+    "grunt": "^0.4.2"
+  },
+  "_nativeDependencies": {}
+}

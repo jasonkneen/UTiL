@@ -1,0 +1,6 @@
+"#imageView": {
+	borderWidth: 5,
+	borderColor: '#000',
+	width: 250,
+	height: 250
+}

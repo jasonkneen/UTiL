@@ -1,0 +1,13 @@
+<Alloy>
+	<Tab id="tab" title="XP.UI">
+		<Window title="XP.UI">
+			<ScrollView>
+				<TextField module="xp.ui" value="Should not focus on Android" class="border" top="10" />
+				
+				<TextArea module="xp.ui" hintText="Should work on iOS as on Android" class="border" top="10" />
+
+				<Label module="xp.ui" html="Should be <b>bold</b> on iOS as on Android" top="10" />
+			</ScrollView>
+		</Window>
+	</Tab>
+</Alloy>
