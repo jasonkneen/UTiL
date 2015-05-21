@@ -27,7 +27,7 @@ CommonJS module using `yy.logcatcher` to let the user report run-time errors.
 ## Share: [docs](docs/share.md) / [source](app/lib/share.js)
 CommonJS module providing a one-in-all social sharing solution for iOS and Android.
 
-## UI: [docs](docs/ui.md) / [source](app/lib/ui.js) / [example](app/controllers/ui`.js)
+## UI: [docs](docs/ui.md) / [source](app/lib/ui.js) / [example](app/controllers/ui.js)
 CommonJS module extending some `Ti.UI.create*` factories.
 
 ## Update: [docs](docs/update.md) / [source](app/lib/update.js)
