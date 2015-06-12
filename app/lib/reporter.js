@@ -11,7 +11,7 @@ require("yy.logcatcher").addEventListener('error', function(error) {
     Ti.Media.takeScreenshot(function(screenshot) {
       sendReport(error, screenshot);
     });
-  } catch () {
+  } catch (e) {
     sendReport(error);
   }
 
