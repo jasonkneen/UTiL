@@ -52,49 +52,49 @@ function walker(node, parameters, outerFont) {
 
       if (node.name === 'a' && node.attribs && node.attribs.href) {
         parameters.attributes.unshift({
-          type: Ti.UI.iOS.ATTRIBUTE_LINK,
+          type: Ti.UI.ATTRIBUTE_LINK,
           value: node.attribs.href,
           range: [offset, length]
         });
 
       } else if (node.name === 'u') {
         parameters.attributes.unshift({
-          type: Ti.UI.iOS.ATTRIBUTE_UNDERLINES_STYLE,
-          value: Ti.UI.iOS.ATTRIBUTE_UNDERLINE_STYLE_SINGLE,
+          type: Ti.UI.ATTRIBUTE_UNDERLINES_STYLE,
+          value: Ti.UI.ATTRIBUTE_UNDERLINE_STYLE_SINGLE,
           range: [offset, length]
         });
 
       } else if (node.name === 'strike' || node.name === 'del' || node.name === 's') {
         parameters.attributes.unshift({
-          type: Ti.UI.iOS.ATTRIBUTE_STRIKETHROUGH_STYLE,
-          value: Ti.UI.iOS.ATTRIBUTE_UNDERLINE_STYLE_SINGLE,
+          type: Ti.UI.ATTRIBUTE_STRIKETHROUGH_STYLE,
+          value: Ti.UI.ATTRIBUTE_UNDERLINE_STYLE_SINGLE,
           range: [offset, length]
         });
 
       } else if (node.name === 'effect') {
         parameters.attributes.unshift({
-          type: Ti.UI.iOS.ATTRIBUTE_TEXT_EFFECT,
-          value: Ti.UI.iOS.ATTRIBUTE_LETTERPRESS_STYLE,
+          type: Ti.UI.ATTRIBUTE_TEXT_EFFECT,
+          value: Ti.UI.ATTRIBUTE_LETTERPRESS_STYLE,
           range: [offset, length]
         });
 
       } else if (node.name === 'kern' && node.attribs && node.attribs.value) {
         parameters.attributes.unshift({
-          type: Ti.UI.iOS.ATTRIBUTE_KERN,
+          type: Ti.UI.ATTRIBUTE_KERN,
           value: node.attribs.value,
           range: [offset, length]
         });
 
       } else if (node.name === 'expansion' && node.attribs && node.attribs.value) {
         parameters.attributes.unshift({
-          type: Ti.UI.iOS.ATTRIBUTE_EXPANSION,
+          type: Ti.UI.ATTRIBUTE_EXPANSION,
           value: node.attribs.value,
           range: [offset, length]
         });
 
       } else if (node.name === 'font' && node.attribs && node.attribs.color) {
         parameters.attributes.unshift({
-          type: Ti.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
+          type: Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
           value: node.attribs.color,
           range: [offset, length]
         });
@@ -103,7 +103,7 @@ function walker(node, parameters, outerFont) {
       // if we have a font to set
       if (innerFont) {
         parameters.attributes.unshift({
-          type: Ti.UI.iOS.ATTRIBUTE_FONT,
+          type: Ti.UI.ATTRIBUTE_FONT,
           value: innerFont,
           range: [offset, length]
         });
@@ -135,7 +135,7 @@ module.exports = function(html, callback) {
 
       // console.log(parameters);
 
-      var attr = Titanium.UI.iOS.createAttributedString(parameters);
+      var attr = Titanium.UI.createAttributedString(parameters);
 
       callback(null, attr);
     }
