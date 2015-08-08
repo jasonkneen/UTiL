@@ -29,7 +29,7 @@ if (Ti.Platform.deployType === 'production') {
 
 ## Example
 
-![Screencast](https://github.com/FokkeZB/UTiL/blob/master/reporter/screencast.gif?raw=true)
+![Screencast](https://github.com/FokkeZB/UTiL/blob/master/docs/reporter.gif?raw=true)
 
 ## Options
 
