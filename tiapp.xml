@@ -52,7 +52,7 @@
 		<theme>default</theme>
 	</mobileweb>
 	<modules>
-    <module platform="commonjs" version="1.2.1">nl.fokkezb.html2as</module>
+    <module platform="commonjs" version="1.3.0">nl.fokkezb.html2as</module>
   </modules>
 	<deployment-targets>
 		<target device="android">true</target>
@@ -60,7 +60,7 @@
 		<target device="iphone">true</target>
 		<target device="mobileweb">false</target>
 	</deployment-targets>
-	<sdk-version>4.0.0.RC</sdk-version>
+	<sdk-version>4.1.0.GA</sdk-version>
 <plugins><plugin version="1.0">ti.alloy</plugin>
 </plugins>
 </ti:app>
