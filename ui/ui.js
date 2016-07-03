@@ -104,7 +104,7 @@ function _setBackgroundImage(view, targetWidth, targetHeight) {
 			return;
 
 		} else {
-			originalFile = Ti.Filesystem.getFile(originalPath);
+			originalFile = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, originalPath);
 			_resizeBackgroundImage(view, targetWidth, targetHeight, originalFile, targetFile);
 		}
 
