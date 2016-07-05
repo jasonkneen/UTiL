@@ -1,0 +1,4 @@
+".border": {
+	borderWith: 5,
+	borderColor: '#000'
+}

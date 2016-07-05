@@ -1,0 +1,21 @@
+<Alloy>
+	<Tab title="UI">
+		<Window title="UI">
+			<ScrollView>
+				<View module="ui" backgroundImage="/images/image.png" backgroundSize="cover" width="45%" height="200" />
+				<Label>backgroundSize:cover</Label>
+
+				<View module="ui" backgroundImage="/images/image.png" backgroundSize="cover" backgroundRotate="true" width="45%" height="200" />
+				<Label>backgroundSize:cover + backgroundRotate:true (updates when orientations changes)</Label>
+
+				<View module="ui" backgroundImage="http://www.appcelerator.com/wp-content/uploads/scale_triangle1.png" backgroundSize="cover" backgroundTarget="myTarget" width="200" height="200" />
+				<Label>backgroundSize:cover + backgroundTarget:myTarget (skips postLayout) + remote image</Label>
+
+				<Button module="ui" id="singleBtn">I only execute when previous is done</Button>
+
+				<Button module="ui" id="onceBtn">I only execute once</Button>
+
+			</ScrollView>
+		</Window>
+	</Tab>
+</Alloy>

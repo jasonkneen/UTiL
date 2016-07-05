@@ -1,1 +1,10 @@
-ui/test/app
+.DS_Store
+Resources
+build.log
+build
+npm-debug.log
+tmp
+.map
+.project
+.settings
+Thumbs.db

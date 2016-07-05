@@ -1,0 +1,8 @@
+<Alloy>
+	<Tab title="Image">
+		<Window title="Image">
+			<ImageView id="imageView" />
+			<Button onClick="onSelectClick">Select Image</Button>
+		</Window>
+	</Tab>
+</Alloy>

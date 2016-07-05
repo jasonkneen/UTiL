@@ -1,0 +1,9 @@
+<Alloy>
+	<Tab title="Gate">
+		<Window title="Gate">
+			<Label id="statusLabel" />
+			<Button onClick="onKeeperClick">Keeper Demo</Button>
+			<Button onClick="onToggleClick">Toggle Lock</Button>
+		</Window>
+	</Tab>
+</Alloy>

@@ -1,0 +1,19 @@
+'Label[platform=android]': {
+	color: '#000' // all platforms except Android default to black
+}
+
+'Window': {
+	backgroundColor: '#fff', // white background instead of default transparent
+	layout: 'vertical'
+}
+
+'TextField[platform=android]': {
+	height: Ti.UI.SIZE //
+}
+
+'ScrollView': {
+	scrollType: 'vertical',
+	contentWidth: Ti.UI.FILL,
+	cotnentHeight: Ti.UI.SIZE,
+	layout: 'vertical'
+}

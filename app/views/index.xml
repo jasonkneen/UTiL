@@ -1,0 +1,8 @@
+<Alloy>
+	<TabGroup>
+		<Require src="gate" />
+		<Require src="image" />
+		<Require src="ui" />
+		<Require src="xp.ui" />
+	</TabGroup>
+</Alloy>
