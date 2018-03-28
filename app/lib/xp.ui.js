@@ -1,81 +1,73 @@
-if (!OS_IOS) {
+class NavigationWindow {
+  constructor(args) {
+    this.args = args;
+  }
 
-    var NavigationWindow = function (args) {
-        this.args = args;
-    };
+  open(options = {}) {
+    options.displayHomeAsUp = false;
+    return this.openWindow(this.args.window, options);
+  }
 
-    NavigationWindow.prototype.open = function (params) {
-        params = params || {};
-        params.displayHomeAsUp = false;
-        return this.openWindow(this.args.window, params);
-    };
+  close(options = {}) {
+    return this.closeWindow(this.args.window, options);
+  }
 
-    NavigationWindow.prototype.close = function (params) {
-        return this.closeWindow(this.args.window, params);
-    };
+  openWindow(window, options = {}) {
+    options.swipeBack = (typeof options.swipeBack === 'boolean') ? options.swipeBack : this.args.swipeBack;
+    options.displayHomeAsUp = (typeof options.displayHomeAsUp === 'boolean') ? options.displayHomeAsUp : this.args.displayHomeAsUp;
 
-    NavigationWindow.prototype.openWindow = function (window, options) {
-        var that = this;
-
-        options = options || {};
-        options.swipeBack = (typeof options.swipeBack === 'boolean') ? options.swipeBack : that.args.swipeBack;
-        options.displayHomeAsUp = (typeof options.displayHomeAsUp === 'boolean') ? options.displayHomeAsUp : that.args.displayHomeAsUp;
-
-        if (OS_ANDROID && options.animated !== false) {
-            options.activityEnterAnimation = Ti.Android.R.anim.slide_in_left;
-            options.activityExitAnimation = Ti.Android.R.anim.slide_out_right;
-        }
-
-        if (options.swipeBack !== false) {
-            window.addEventListener('swipe', function (e) {
-                if (e.direction === 'right') {
-                    that.closeWindow(window, options);
-                }
-            });
-        }
-
-        if (OS_ANDROID && options.displayHomeAsUp !== false && !window.navBarHidden) {
-            window.addEventListener('open', function () {
-                var activity = window.getActivity();
-                if (activity) {
-                    var actionBar = activity.actionBar;
-                    if (actionBar) {
-                        actionBar.displayHomeAsUp = true;
-                        actionBar.onHomeIconItemSelected = function () {
-                            that.closeWindow(window, options);
-                        };
-                    }
-                }
-            });
-        }
-
-        return window.open(options);
-    };
-
-    NavigationWindow.prototype.closeWindow = function (window, options) {
-        options = options || {};
-
-        if (OS_ANDROID && options.animated !== false) {
-            options.activityEnterAnimation = Ti.Android.R.anim.slide_in_left;
-            options.activityExitAnimation = Ti.Android.R.anim.slide_out_right;
-        }
-
-        return window.close(options);
-    };
-}
-
-exports.createNavigationWindow = function (args) {
-    var navWin = OS_IOS ? Ti.UI.iOS.createNavigationWindow(args) : new NavigationWindow(args);
-
-    if (args && args.id) {
-        Alloy.Globals[args.id] = navWin;
+    if (OS_ANDROID && options.animated !== false) {
+      options.activityEnterAnimation = Ti.Android.R.anim.slide_in_left;
+      options.activityExitAnimation = Ti.Android.R.anim.slide_out_right;
     }
 
-    return navWin;
+    if (options.swipeBack !== false) {
+      window.addEventListener('swipe', () => {
+        if (e.direction === 'right') {
+          this.closeWindow(window, options);
+        }
+      });
+    }
+
+    if (OS_ANDROID && options.displayHomeAsUp !== false && !window.navBarHidden) {
+      window.addEventListener('open', () => {
+        const activity = window.getActivity();
+        if (activity) {
+          const actionBar = activity.actionBar;
+          if (actionBar) {
+            actionBar.displayHomeAsUp = true;
+            actionBar.onHomeIconItemSelected = () => {
+              this.closeWindow(window, options);
+            };
+          }
+        }
+      });
+    }
+
+    return window.open(options);
+  }
+
+  closeWindow(window, options = {}) {
+    if (OS_ANDROID && options.animated !== false) {
+      options.activityEnterAnimation = Ti.Android.R.anim.slide_in_left;
+      options.activityExitAnimation = Ti.Android.R.anim.slide_out_right;
+    }
+
+    return window.close(options);
+  }
 };
 
-exports.createWindow = function (args) {
+const createNavigationWindow = (args) => {
+  const navWin = OS_IOS ? Ti.UI.iOS.createNavigationWindow(args) : new NavigationWindow(args);
 
+  if (args && args.id) {
+    Alloy.Globals[args.id] = navWin;
+  }
+
+  return navWin;
+}
+
+const createWindow = (args) => {
     if (OS_IOS) {
         return Ti.UI.createWindow(args);
     } else {
@@ -83,8 +75,8 @@ exports.createWindow = function (args) {
     }
 };
 
-exports.createTextArea = function (args) {
-    var $textArea = Ti.UI.createTextArea(args);
+const createTextArea = (args) => {
+    const $textArea = Ti.UI.createTextArea(args);
 
     if (args.hintText) {
         $textArea.originalColor = $textArea.color || '#000';
@@ -95,7 +87,7 @@ exports.createTextArea = function (args) {
             });
         }
 
-        $textArea.addEventListener('focus', function (e) {
+        $textArea.addEventListener('focus', (e) => {
             if (e.source.value == e.source.hintText) {
                 e.source.applyProperties({
                     value: '',
@@ -104,7 +96,7 @@ exports.createTextArea = function (args) {
             }
         });
 
-        $textArea.addEventListener('blur', function (e) {
+        $textArea.addEventListener('blur', (e) => {
             if (!e.source.value) {
                 e.source.applyProperties({
                     value: e.source.hintText,
@@ -117,18 +109,18 @@ exports.createTextArea = function (args) {
     return $textArea;
 };
 
-exports.createLabel = function createLabel(args) {
+const createLabel = (args) => {
 
     if (OS_IOS && args.html) {
-        var html = args.html;
+        const html = args.html;
 
         delete args.text;
         delete args.html;
 
-        var label = Ti.UI.createLabel(args);
-        var ref = label;
+        const label = Ti.UI.createLabel(args);
+        const ref = label;
 
-        var html2as = require('nl.fokkezb.html2as');
+        const html2as = require('nl.fokkezb.html2as');
 
         html2as(html, function (err, attr) {
 
@@ -149,15 +141,14 @@ exports.createLabel = function createLabel(args) {
     }
 };
 
-// helper
-var isAndroid = Ti.Platform.osname == "android";
-
 /**
  * Fixes the auto focus on textfield on android 
  */
-exports.createTextField = function (args) {
+const createTextField = (args) => {
+    const isAndroid = Ti.Platform.osname === 'android';
+
     if (isAndroid) {
-        var view = Ti.UI.createTextField(args);
+        const view = Ti.UI.createTextField(args);
 
         // fix auto focus
         view.addEventListener('focus', function focusFix(e) {
@@ -168,4 +159,12 @@ exports.createTextField = function (args) {
     } else {
         return Ti.UI.createTextField(args);
     }
+};
+
+export {
+  createNavigationWindow,
+  createWindow,
+  createTextArea,
+  createLabel,
+  createTextField
 };
